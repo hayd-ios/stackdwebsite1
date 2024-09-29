@@ -20,8 +20,70 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
   }
+}
+
+.metallic-text {
+  background: linear-gradient(
+    to right,
+    #c0c0c0 20%,
+    #ffffff 40%,
+    #ffffff 60%,
+    #c0c0c0 80%
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+.metallic-button {
+  background: linear-gradient(145deg, #2a2a2a, #222222);
+  color: #e0e0e0;
+  border: 1px solid #333;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.metallic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.metallic-button:hover {
+  background: linear-gradient(145deg, #323232, #2a2a2a);
+  color: #ffffff;
+}
+
+.metallic-button:hover::before {
+  left: 100%;
+}
+
+.metallic-button:active {
+  background: linear-gradient(145deg, #222222, #2a2a2a);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(0, 0, 0, 0.1);
 }
