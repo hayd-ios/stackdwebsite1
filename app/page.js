@@ -7,7 +7,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaShare, FaImages, FaSwipeRight, FaRocket, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 import { MdSwipeRight } from "react-icons/md";
 import Logo from "./assets/s.png";
-import SS1 from "./assets/ss1.png";
+import SS1 from "./assets/1.jpg";
+import SS2 from "./assets/2.jpg";
+import SS3 from "./assets/3.jpg";
 
 const FeatureCard = ({ icon, title, description }) => (
   <motion.div 
@@ -24,70 +26,70 @@ const FeatureCard = ({ icon, title, description }) => (
   </motion.div>
 );
 
-const TimelineItem = ({ date, content, index }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+// const TimelineItem = ({ date, content, index }) => {
+//   const [ref, inView] = useInView({
+//     triggerOnce: true,
+//     threshold: 0.2,
+//   });
 
-  return (
-    <motion.div
-      ref={ref}
-      className={`flex items-center ${index % 2 === 0 ? 'flex-row-reverse' : ''} mb-8`}
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-    >
-      <div className="w-1/2 px-4">
-        <motion.div
-          className="bg-gray-900 p-6 rounded-lg shadow-lg"
-          initial={{ scale: 0.8 }}
-          animate={inView ? { scale: 1 } : {}}
-          transition={{ duration: 0.3, delay: index * 0.2 + 0.2 }}
-        >
-          <h3 className="text-xl font-bold text-purple-400 mb-2">{date}</h3>
-          <p className="text-gray-300">{content}</p>
-        </motion.div>
-      </div>
-      <div className="w-8 h-8 bg-purple-500 rounded-full border-4 border-gray-800 z-10"></div>
-      <div className="w-1/2 px-4"></div>
-    </motion.div>
-  );
-};
+//   return (
+//     <motion.div
+//       ref={ref}
+//       className={`flex items-center ${index % 2 === 0 ? 'flex-row-reverse' : ''} mb-8`}
+//       initial={{ opacity: 0, y: 50 }}
+//       animate={inView ? { opacity: 1, y: 0 } : {}}
+//       transition={{ duration: 0.5, delay: index * 0.2 }}
+//     >
+//       <div className="w-1/2 px-4">
+//         <motion.div
+//           className="bg-gray-900 p-6 rounded-lg shadow-lg"
+//           initial={{ scale: 0.8 }}
+//           animate={inView ? { scale: 1 } : {}}
+//           transition={{ duration: 0.3, delay: index * 0.2 + 0.2 }}
+//         >
+//           <h3 className="text-xl font-bold text-purple-400 mb-2">{date}</h3>
+//           <p className="text-gray-300">{content}</p>
+//         </motion.div>
+//       </div>
+//       <div className="w-8 h-8 bg-purple-500 rounded-full border-4 border-gray-800 z-10"></div>
+//       <div className="w-1/2 px-4"></div>
+//     </motion.div>
+//   );
+// };
 
 
 
-const Timeline = () => {
-  const timelineRef = useRef(null);
-  const { scrollY } = useScroll();
+// const Timeline = () => {
+//   const timelineRef = useRef(null);
+//   const { scrollY } = useScroll();
 
-  const opacity = useTransform(
-    scrollY,
-    [0, 800, 1000, 1200],  // Adjust these values based on when you want the fade to occur
-    [0, 1, 1, 0]
-  );
+//   const opacity = useTransform(
+//     scrollY,
+//     [0, 800, 1000, 1200],  // Adjust these values based on when you want the fade to occur
+//     [0, 1, 1, 0]
+//   );
 
-  const timelineData = [
-    { date: "Early 2022", content: "Initial Idea for Stackd" },
-    { date: "Mid 2022", content: "Development began, multiple revisions and kinks were ironed out." },
-    { date: "Late 2024", content: "After 2 years, We are ready to launch." },
-  ];
+//   const timelineData = [
+//     { date: "Early 2022", content: "Initial Idea for Stackd" },
+//     { date: "Mid 2022", content: "Development began, multiple revisions and kinks were ironed out." },
+//     { date: "Late 2024", content: "After 2 years, We are ready to launch." },
+//   ];
 
-  return (
-    <motion.section 
-      ref={timelineRef}
-      style={{ opacity }}
-      className="py-20 px-6 bg-black relative overflow-hidden"
-    >
-      <div className="max-w-4xl mx-auto relative">
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-800 transform -translate-x-1/2"></div>
-        {timelineData.map((item, index) => (
-          <TimelineItem key={index} {...item} index={index} />
-        ))}
-      </div>
-    </motion.section>
-  );
-};
+//   return (
+//     <motion.section 
+//       ref={timelineRef}
+//       style={{ opacity }}
+//       className="py-20 px-6 bg-black relative overflow-hidden"
+//     >
+//       <div className="max-w-4xl mx-auto relative">
+//         <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-800 transform -translate-x-1/2"></div>
+//         {timelineData.map((item, index) => (
+//           <TimelineItem key={index} {...item} index={index} />
+//         ))}
+//       </div>
+//     </motion.section>
+//   );
+// };
 
 export default function Home() {
 
@@ -172,7 +174,61 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
       </main>
 
-      <Timeline />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-screen">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.1 }}
+    viewport={{ once: true }}
+    className="relative w-full h-full"
+  >
+    <div className="absolute inset-0 rounded-2xl overflow-hidden h-full w-full">
+      <Image 
+        src={SS1} 
+        alt="Stackd Screenshot 1" 
+        layout="fill" 
+        objectFit="cover" 
+        className="transition-transform duration-300 hover:scale-105" 
+      />
+    </div>
+  </motion.div>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.2 }}
+    viewport={{ once: true }}
+    className="relative w-full h-full"
+  >
+    <div className="absolute inset-0 rounded-2xl overflow-hidden">
+      <Image 
+        src={SS2} 
+        alt="Stackd Screenshot 2" 
+        layout="fill" 
+        objectFit="cover" 
+        className="transition-transform duration-300 hover:scale-105" 
+      />
+    </div>
+  </motion.div>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.3 }}
+    viewport={{ once: true }}
+    className="relative w-full h-full"
+  >
+    <div className="absolute inset-0 rounded-2xl overflow-hidden">
+      <Image 
+        src={SS3} 
+        alt="Stackd Screenshot 3" 
+        layout="fill" 
+        objectFit="cover" 
+        className="transition-transform duration-300 hover:scale-105" 
+      />
+    </div>
+  </motion.div>
+</div>
+
+
 
       <section className="py-32 px-6 bg-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-black pointer-events-none"></div>
@@ -254,14 +310,14 @@ export default function Home() {
             <div className="space-y-4">
               <Image src={Logo} alt="Stackd Logo" width={40} height={40} />
               <p className="text-gray-400">Revolutionizing photo sharing with innovative solutions.</p>
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors"><FaTwitter /></a>
                 <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors"><FaInstagram /></a>
                 <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors"><FaLinkedin /></a>
                 <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors"><FaGithub /></a>
-              </div>
+              </div> */}
             </div>
-            <div>
+            {/* <div>
               <h3 className="text-lg font-semibold mb-4 text-purple-400">Product</h3>
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
@@ -282,7 +338,7 @@ export default function Home() {
                 <li><a href="mailto:support@stackd.com" className="text-gray-400 hover:text-white transition-colors">support@stackdapp.com</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">+1 (555) 123-4567</a></li>
               </ul>
-            </div>
+            </div> */}
           </div>
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2024 Stackd. All rights reserved.</p>
