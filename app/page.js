@@ -27,7 +27,7 @@ const FeatureCard = ({ icon, title, description }) => (
 const AppStoreButton = ({ className }) => (
   <motion.a
     href="https://apps.apple.com/gb/app/stackd-bulk-image-sharing/id6736886196"
-    className={`inline-flex items-center px-4 py-3 rounded-full text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg ${className}`}
+    className={`inline-flex items-center justify-center px-4 py-3 rounded-full text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg ${className}`}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
   >
