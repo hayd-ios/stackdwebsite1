@@ -100,29 +100,12 @@ export default function Home() {
         </motion.div>
       </main>
 
-      <section className="py-32 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:min-h-100vh md:h-[80vh]">
+      <section className="py-32 px-6">
+          <div className="flex flex-col md:flex-row gap-8 min-h-screen md:h-[80vh]">
             {[SS1, SS2, SS3].map((src, index) => (
-              <div
-                key={index}
-                // initial={{ opacity: 0, y: 20 }}
-                // whileInView={{ opacity: 1, y: 0 }}
-                // transition={{ duration: 0.5, delay: index * 0.1 }}
-                // viewport={{ once: true }}
-                className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl"
-              >
-                <Image 
-                  src={src} 
-                  alt={`Stackd Screenshot ${index + 1}`} 
-                  layout="fill" 
-                  objectFit="contain" 
-                  className="transition-transform duration-300 hover:scale-105" 
-                />
-              </div>
+             <Image src={src} alt={`Stackd Screenshot ${index + 1}`} className="rounded-3xl shadow-2xl w-full h-full" />
             ))}
           </div>
-        </div>
       </section>
 
       <section className="py-32 px-6 relative overflow-hidden">
