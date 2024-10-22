@@ -101,29 +101,29 @@ export default function Home() {
       </main>
 
       <section className="py-32 px-6 relative overflow-hidden">
-  <div className="max-w-7xl mx-auto">
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-screen md:h-[80vh]">
-      {[SS1, SS2, SS3].map((src, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          viewport={{ once: true }}
-          className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl"
-        >
-          <Image 
-            src={src} 
-            alt={`Stackd Screenshot ${index + 1}`} 
-            layout="fill" 
-            objectFit="contain" 
-            className="transition-transform duration-300 hover:scale-105" 
-          />
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-screen md:h-[80vh]">
+            {[SS1, SS2, SS3].map((src, index) => (
+              <div
+                key={index}
+                // initial={{ opacity: 0, y: 20 }}
+                // whileInView={{ opacity: 1, y: 0 }}
+                // transition={{ duration: 0.5, delay: index * 0.1 }}
+                // viewport={{ once: true }}
+                className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl"
+              >
+                <Image 
+                  src={src} 
+                  alt={`Stackd Screenshot ${index + 1}`} 
+                  layout="fill" 
+                  objectFit="contain" 
+                  className="transition-transform duration-300 hover:scale-105" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="py-32 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
@@ -190,7 +190,7 @@ export default function Home() {
               <Image src={Logo} alt="Stackd Logo" width={100} height={40} />
               <p className="text-gray-400">Share, Swipe, Save.</p>
             </div>
-            <AppStoreButton className="text-sm" />
+            
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400 text-sm">&copy; 2024 Stackd. All rights reserved.</p>
