@@ -27,7 +27,7 @@ const FeatureCard = ({ icon, title, description }) => (
 const AppStoreButton = ({ className }) => (
   <motion.a
     href="https://apps.apple.com/gb/app/stackd-bulk-image-sharing/id6736886196"
-    className={`inline-flex items-center px-6 py-3 rounded-full text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg ${className}`}
+    className={`inline-flex items-center px-4 py-3 rounded-full text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg ${className}`}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
   >
@@ -64,7 +64,7 @@ export default function Home() {
         <nav className={`mx-auto max-w-6xl ${scrolled ? 'bg-gray-950/70' : 'bg-transparent'} backdrop-blur-md rounded-full transition-all duration-300 py-2`}>
           <div className="flex justify-between items-center px-8 py-2">
             <Image src={Logo} alt="Stackd Logo" width={100} height={40} />
-            <AppStoreButton className="text-sm" />
+            <AppStoreButton className="text-[11px] md:text-sm" />
           </div>
         </nav>
       </header>
