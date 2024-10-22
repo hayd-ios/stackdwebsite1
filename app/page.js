@@ -102,7 +102,7 @@ export default function Home() {
 
       <section className="py-32 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-auto md:h-[80vh]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:min-h-100vh md:h-[80vh]">
             {[SS1, SS2, SS3].map((src, index) => (
               <div
                 key={index}
