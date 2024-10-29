@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['via.placeholder.com'],
+  reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: '/app-ads.txt',
+        destination: '/app-ads.txt',
       },
-};
+    ];
+  },
+}
 
 export default nextConfig;
