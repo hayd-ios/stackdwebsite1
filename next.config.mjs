@@ -4,7 +4,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/app-ads.txt',
+        source: '/public/app-ads.txt',
         destination: '/app-ads.txt',
       },
     ];
