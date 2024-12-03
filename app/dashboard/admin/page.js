@@ -35,6 +35,13 @@ export default function AdminDashboard() {
   const [userData, setUserData] = useState(null);
   const [authorized, setAuthorized] = useState(false);
 
+  const [showPinModal, setShowPinModal] = useState(false);
+  const [pin, setPin] = useState("");
+  const [showEmails, setShowEmails] = useState(false);
+  const [pinError, setPinError] = useState("");
+
+  const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN;
+
   const router = useRouter();
   const { user } = useAuth();
 
@@ -201,6 +208,81 @@ export default function AdminDashboard() {
   if (!authorized) {
     return null;
   }
+
+  const handlePinSubmit = (e) => {
+    e.preventDefault();
+    if (pin === ADMIN_PIN) {
+      setShowEmails(true);
+      setShowPinModal(false);
+      setPinError("");
+    } else {
+      setPinError("Incorrect PIN");
+    }
+  };
+
+  const BlurredEmail = ({ email }) => {
+    if (showEmails) return email;
+    return (
+      <div className="flex items-center space-x-2">
+        <div className="flex-1">
+          <div className="blur-sm select-none px-2 py-1">
+            {email}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowPinModal(true)}
+          className="text-purple-400 hover:text-purple-300 flex items-center space-x-1 shrink-0"
+        >
+          <Lock className="w-4 h-4" />
+          <span className="text-sm">Unlock</span>
+        </button>
+      </div>
+    );
+  };
+
+  // PIN Modal Component
+  const PinModal = () => (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-neutral-900 p-6 rounded-xl border border-neutral-800 w-full max-w-md">
+        <h3 className="text-lg font-medium mb-4">Enter Admin PIN</h3>
+        <form onSubmit={handlePinSubmit} className="space-y-4">
+          <div>
+            <input
+              type="password"
+              value={pin}
+              onChange={(e) => setPin(e.target.value)}
+              className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
+              placeholder="Enter PIN"
+              maxLength={6}
+            />
+            {pinError && (
+              <p className="text-red-500 text-sm mt-1">{pinError}</p>
+            )}
+          </div>
+          <div className="flex space-x-3">
+            <button
+              type="button"
+              onClick={() => {
+                setShowPinModal(false);
+                setPin("");
+                setPinError("");
+              }}
+              className="flex-1 px-4 py-2 border border-neutral-700 rounded-lg hover:bg-neutral-800 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex-1 px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-500 transition-colors"
+            >
+              Unlock
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -374,7 +456,7 @@ export default function AdminDashboard() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {user.email}
+                          <BlurredEmail email={user.email} />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-neutral-400">
                           {user.stackScore}
@@ -484,6 +566,7 @@ export default function AdminDashboard() {
           )}
         </div>
       </div>
+      {showPinModal && <PinModal />}
     </div>
   );
 }
