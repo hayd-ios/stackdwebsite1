@@ -98,13 +98,14 @@ export default function WorkflowPage() {
 
   useEffect(() => {
     // Extract unique versions from issues
-    const versions = [...new Set(issues.map(issue => issue.version))].sort();
+    const versions = [...new Set(issues.map((issue) => issue.version))].sort();
     setUniqueVersions(versions);
   }, [issues]);
 
-  const filteredIssues = issues.filter(issue => {
+  const filteredIssues = issues.filter((issue) => {
     const matchesVersion = !filterVersion || issue.version === filterVersion;
-    const matchesSeverity = !filterSeverity || issue.severity === filterSeverity;
+    const matchesSeverity =
+      !filterSeverity || issue.severity === filterSeverity;
     return matchesVersion && matchesSeverity;
   });
 
@@ -154,21 +155,21 @@ export default function WorkflowPage() {
       const issueRef = doc(db, "issues", issueId);
       await updateDoc(issueRef, {
         status: newStatus,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
-      
+
       // Refresh issues list
       await fetchIssues();
-      
+
       setNotification({
         type: "success",
-        message: `Issue status updated to ${newStatus}`
+        message: `Issue status updated to ${newStatus}`,
       });
     } catch (error) {
       console.error("Error updating issue status:", error);
       setNotification({
         type: "error",
-        message: "Failed to update issue status"
+        message: "Failed to update issue status",
       });
     }
   };
@@ -356,7 +357,8 @@ export default function WorkflowPage() {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">Recent Issues</h2>
             <span className="text-neutral-400">
-              {filteredIssues.length} of {issues.length} {issues.length === 1 ? "issue" : "issues"}
+              {filteredIssues.length} of {issues.length}{" "}
+              {issues.length === 1 ? "issue" : "issues"}
             </span>
           </div>
 
@@ -378,7 +380,7 @@ export default function WorkflowPage() {
                 ))}
               </select>
             </div>
-            
+
             <div className="flex-1">
               <label className="block text-sm font-medium text-neutral-400 mb-1">
                 Filter by Severity
@@ -447,7 +449,9 @@ export default function WorkflowPage() {
                       <div className="flex items-center space-x-2">
                         <select
                           value={issue.status}
-                          onChange={(e) => updateIssueStatus(issue.id, e.target.value)}
+                          onChange={(e) =>
+                            updateIssueStatus(issue.id, e.target.value)
+                          }
                           className="bg-neutral-800 border border-neutral-700 rounded-lg px-2 py-1 text-xs focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
                         >
                           <option value="open">Open</option>
@@ -470,7 +474,7 @@ export default function WorkflowPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center text-neutral-400">
+                    <div className="flex items-center text-neutral-400 text-[9px] md:text-md">
                       <Clock className="w-4 h-4 mr-1" />
                       {issue.createdAt
                         ? format(issue.createdAt, "MMM d, yyyy HH:mm")
