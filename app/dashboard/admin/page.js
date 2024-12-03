@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import {
   fetchAllUsers,
   fetchAllStacks,
+  fetchAllIssues,
   fetchUserData,
 } from "../../../service/firebaseService";
 import { formatDistance, format, formatRelative } from "date-fns";
@@ -18,6 +19,8 @@ import {
   Search,
   Filter,
   MoreVertical,
+  AlertTriangle,
+  Globe,
 } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase/config";
@@ -28,6 +31,7 @@ import { useAuth } from "../../../context/AuthContext";
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [stacks, setStacks] = useState([]);
+  const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("users");
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,13 +64,15 @@ export default function AdminDashboard() {
         setAuthorized(true); // User is admin, mark as authorized
 
         // Then load the rest of the data
-        const [usersData, stacksData] = await Promise.all([
+        const [usersData, stacksData, issuesData] = await Promise.all([
           fetchAllUsers(),
           fetchAllStacks(),
+          fetchAllIssues(),
         ]);
 
         setUsers(usersData);
         setStacks(stacksData);
+        setIssues(issuesData);
       } catch (error) {
         console.error("Error in admin dashboard:", error);
         router.push("/dashboard");
@@ -360,6 +366,19 @@ export default function AdminDashboard() {
               value={stacks.filter((s) => s.isPrivate).length}
               icon={Lock} // Import this from lucide-react
               color="bg-yellow-500/10 text-yellow-500"
+            />
+            <StatsCard
+              title="Public Stacks"
+              value={stacks.filter((s) => !s.isPrivate).length}
+              icon={Globe} // Import this from lucide-react
+              color="bg-green-500/10 text-green-500"
+            />
+            <StatsCard
+              title="Total Issues"
+              value={issues.length}
+              icon={AlertTriangle} // Import this from lucide-react
+              color="bg-red-500/10 text-red-500"
+              onClick={() => router.push("/dashboard/admin/workflow")}
             />
           </div>
 

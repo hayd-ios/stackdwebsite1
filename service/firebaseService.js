@@ -62,4 +62,21 @@ const fetchAllStacks = async () => {
   }
 };
 
-export { fetchUserData, fetchUsersStacks, fetchAllUsers, fetchAllStacks };
+const fetchAllIssues = async () => {
+  try {
+    const issuesRef = collection(db, "issues");
+    const querySnapshot = await getDocs(issuesRef);
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching all issues:", error);
+    throw error;
+  }
+};
+
+export {
+  fetchUserData,
+  fetchUsersStacks,
+  fetchAllUsers,
+  fetchAllStacks,
+  fetchAllIssues,
+};

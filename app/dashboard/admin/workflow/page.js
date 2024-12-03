@@ -49,6 +49,9 @@ export default function WorkflowPage() {
       color: "bg-red-900/10 text-red-500",
     },
   ];
+  const [filterVersion, setFilterVersion] = useState("");
+  const [filterSeverity, setFilterSeverity] = useState("");
+  const [uniqueVersions, setUniqueVersions] = useState([]);
 
   useEffect(() => {
     const checkAdminAndLoadData = async () => {
@@ -92,6 +95,18 @@ export default function WorkflowPage() {
       setIssuesLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Extract unique versions from issues
+    const versions = [...new Set(issues.map(issue => issue.version))].sort();
+    setUniqueVersions(versions);
+  }, [issues]);
+
+  const filteredIssues = issues.filter(issue => {
+    const matchesVersion = !filterVersion || issue.version === filterVersion;
+    const matchesSeverity = !filterSeverity || issue.severity === filterSeverity;
+    return matchesVersion && matchesSeverity;
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -341,8 +356,46 @@ export default function WorkflowPage() {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">Recent Issues</h2>
             <span className="text-neutral-400">
-              {issues.length} {issues.length === 1 ? "issue" : "issues"} total
+              {filteredIssues.length} of {issues.length} {issues.length === 1 ? "issue" : "issues"}
             </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-neutral-400 mb-1">
+                Filter by Version
+              </label>
+              <select
+                value={filterVersion}
+                onChange={(e) => setFilterVersion(e.target.value)}
+                className="w-full px-4 py-2 bg-neutral-900/90 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
+              >
+                <option value="">All Versions</option>
+                {uniqueVersions.map((version) => (
+                  <option key={version} value={version}>
+                    v{version}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-neutral-400 mb-1">
+                Filter by Severity
+              </label>
+              <select
+                value={filterSeverity}
+                onChange={(e) => setFilterSeverity(e.target.value)}
+                className="w-full px-4 py-2 bg-neutral-900/90 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
+              >
+                <option value="">All Severities</option>
+                {severityOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {issuesLoading ? (
@@ -356,7 +409,7 @@ export default function WorkflowPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {issues.map((issue) => (
+              {filteredIssues.map((issue) => (
                 <div
                   key={issue.id}
                   className="bg-neutral-900/50 backdrop-blur-xl border border-neutral-800/50 rounded-lg p-4 hover:bg-neutral-800/50 transition-all"
