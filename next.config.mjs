@@ -4,11 +4,14 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/public/app-ads.txt',
-        destination: '/app-ads.txt',
+        source: "/public/app-ads.txt",
+        destination: "/app-ads.txt",
       },
     ];
   },
-}
+  images: {
+    domains: ["firebasestorage.googleapis.com", "storage.googleapis.com"],
+  },
+};
 
 export default nextConfig;
