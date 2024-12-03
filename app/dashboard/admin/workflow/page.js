@@ -14,6 +14,8 @@ import {
   query,
   orderBy,
   getDocs,
+  doc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../../../../firebase/config";
 import { AlertTriangle, CheckCircle2, XCircle, Clock } from "lucide-react";
@@ -130,6 +132,30 @@ export default function WorkflowPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const updateIssueStatus = async (issueId, newStatus) => {
+    try {
+      const issueRef = doc(db, "issues", issueId);
+      await updateDoc(issueRef, {
+        status: newStatus,
+        updatedAt: serverTimestamp()
+      });
+      
+      // Refresh issues list
+      await fetchIssues();
+      
+      setNotification({
+        type: "success",
+        message: `Issue status updated to ${newStatus}`
+      });
+    } catch (error) {
+      console.error("Error updating issue status:", error);
+      setNotification({
+        type: "error",
+        message: "Failed to update issue status"
+      });
+    }
   };
 
   return (
@@ -365,15 +391,31 @@ export default function WorkflowPage() {
                   <div className="mt-4 flex items-center justify-between text-sm">
                     <div className="flex items-center space-x-4">
                       <span className="text-neutral-400">v{issue.version}</span>
-                      <span
-                        className={`px-2 py-0.5 rounded-full text-xs ${
-                          issue.status === "open"
-                            ? "bg-green-500/10 text-green-500"
-                            : "bg-neutral-500/10 text-neutral-500"
-                        }`}
-                      >
-                        {issue.status}
-                      </span>
+                      <div className="flex items-center space-x-2">
+                        <select
+                          value={issue.status}
+                          onChange={(e) => updateIssueStatus(issue.id, e.target.value)}
+                          className="bg-neutral-800 border border-neutral-700 rounded-lg px-2 py-1 text-xs focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
+                        >
+                          <option value="open">Open</option>
+                          <option value="in_progress">In Progress</option>
+                          <option value="fixed">Fixed</option>
+                          <option value="closed">Closed</option>
+                        </select>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-xs ${
+                            issue.status === "open"
+                              ? "bg-green-500/10 text-green-500"
+                              : issue.status === "in_progress"
+                              ? "bg-yellow-500/10 text-yellow-500"
+                              : issue.status === "fixed"
+                              ? "bg-blue-500/10 text-blue-500"
+                              : "bg-neutral-500/10 text-neutral-500"
+                          }`}
+                        >
+                          {issue.status.replace("_", " ")}
+                        </span>
+                      </div>
                     </div>
                     <div className="flex items-center text-neutral-400">
                       <Clock className="w-4 h-4 mr-1" />
