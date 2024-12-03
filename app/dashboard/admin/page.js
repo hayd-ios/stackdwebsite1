@@ -225,9 +225,7 @@ export default function AdminDashboard() {
     return (
       <div className="flex items-center space-x-2">
         <div className="flex-1">
-          <div className="blur-sm select-none px-2 py-1">
-            {email}
-          </div>
+          <div className="blur-sm select-none px-2 py-1">{email}</div>
         </div>
         <button
           type="button"
@@ -300,6 +298,14 @@ export default function AdminDashboard() {
                 <Link href="/dashboard/admin">
                   <button className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
                     Admin
+                  </button>
+                </Link>
+              )}
+
+              {userData?.isAdmin && (
+                <Link href="/dashboard/admin/workflow">
+                  <button className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                    Workflow
                   </button>
                 </Link>
               )}

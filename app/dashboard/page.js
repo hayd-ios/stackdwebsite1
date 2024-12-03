@@ -115,6 +115,14 @@ export default function Dashboard() {
                   </button>
                 </Link>
               )}
+
+              {userData?.isAdmin && (
+                <Link href="/dashboard/admin/workflow">
+                  <button className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                    Workflow
+                  </button>
+                </Link>
+              )}
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-sm text-red-500/80 hover:text-red-400 transition-colors"
